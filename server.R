@@ -8,7 +8,7 @@ shinyServer(function(input, output) {
     paste("mpg ~", "as.integer(", input$predictor,")")
   })
   
-  myFit <- reactive({
+  fit <- reactive({
     lm(as.formula(getPredictorString()), data=mtcars)
   })
   
@@ -22,7 +22,7 @@ shinyServer(function(input, output) {
   
   output$myPlot <- renderPlot ({
     with(mtcars, {plot(as.formula(getPredictorString()), xlab=input$predictor, ylab="Miles per Gallon (MPG)")
-      abline(myFit())
+      abline(fit(), col="red")
     })
   })
 })
